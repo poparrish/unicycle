@@ -3,6 +3,12 @@
 //#include <Adafruit_BNO055.h>
 //#include <utility/imumaths.h>
 
+/*INSTRUCTIONS
+This isn't finished yet but can calculate the RPM of the wheel for angular rotation and implements the basic functionality
+of the motorcontroller. No PID control on desired RPM yet.(may be able to get away with not using one since voltage/rpm scaling
+appears linear. To write a speed just change desiredRPM and upload. It will be about 1.5times faster than the value entered at 
+25V. The current RPM is printed to the serial monitor.*/
+
 //pins
 int vrPin = 5;
 int tachSignal = 3;//must use either pins 2 or 3 for interrupts if on arduino Uno
