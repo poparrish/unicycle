@@ -3,12 +3,12 @@
 
 
 controlLaw::controlLaw(){
-  Hz = 30;
+  Hz = 15;
   pulsesPerRot = 45;
   DerRPMerror = 0;
   lastCycleSpeedCheck = 0;
   lastCycleRPM = 0;
-  cutoff = 5;
+  cutoff = 10;
   speedCheck = 0;
   speedCheckFloat = 0.0;
   Pgain = 0.0;
@@ -78,11 +78,16 @@ returnVariables controlLaw::calculate(float phi,int newDesiredRPM,bool lastInter
   RPMerror = desiredRPM - curRPM;
   DerRPMerror = curRPM - lastCycleRPM;
 
-    //HUB PD START//
+//  speedCheck = phi;
+//    HUB PD START//
   if(desiredRPM != 0){
-    speedCheck = desiredRPM + 32;
+    speedCheck = desiredRPM+cutoff;
   }else{
     speedCheck = 0;
+  }
+  //keep within 255char size
+  if(speedCheck > 255){
+    speedCheck =255;
   }
  
    
@@ -94,4 +99,3 @@ returnVariables controlLaw::calculate(float phi,int newDesiredRPM,bool lastInter
   returnStruct.backToZero = backToZero;
   return returnStruct;   
 }
-
